@@ -2,19 +2,18 @@
   width: 80vw;
   height: 80vh;
   position: fixed;
-  background-color: rgb(242, 242, 242);
+  background-color: rgb(210, 207, 207);
   z-index: 4;
   top: 50%;
   left: 50%;
   overflow-y: scroll;
   transform: translate(-50%, -50%);
-  font-size: 1rem;
 }
 
 .wrapper {
   width: 100vw;
   height: 100vh;
-  background-color: rgba(82, 82, 82, 0.7);
+  background-color: rgb(73, 73, 73);
   opacity: 0.8;
   position: fixed;
   left: 0;
@@ -32,64 +31,4 @@
 
 .btn-close :hover {
   color: red;
-}
-
-.btn-add {
-  text-align: right;
-  cursor: pointer;
-  padding: 10px;
-  border: 1px solid;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease-in-out;
-}
-
-.btn-add:hover {
-  box-shadow: 0 0 3px 1px grey;
-  transform: scale(1.1);
-}
-
-.hidden {
-  display: none !important;
-}
-
-.img {
-  width: 300px;
-  height: 300px;
-  object-fit: contain;
-}
-
-.color-preview {
-  border: 1px solid rgb(183, 183, 183);
-  box-shadow: 0 0 5px 1px rgb(122, 122, 122);
-  width: 35px;
-  border-radius: 5px;
-  height: 35px;
-}
-
-.flex-end {
-  align-self: flex-end;
-}
-
-.flex-end>span {
-  display: none;
-}
-
-@media screen and (max-width: 900px) {
-  .flex-end {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  .flex-end>span {
-    display: block;
-  }
-
-  .sm-dflex-column {
-    flex-direction: column !important;
-    width: 100% !important;
-  }
 }

@@ -1,78 +1,27 @@
-.container-order {
-    background-color: #fff;
-    max-width: 100vw;
-    min-height: 100vh;
+.header-order {
+    width: 100%;
 }
 
 .btn-group {
     width: 100%;
-    flex-wrap: wrap;
-}
-
-.btn-group {
-    width: 100%;
-    flex-wrap: wrap;
 }
 
 .activeButton {
     box-shadow: 0px 5px 5px #6c757d;
 }
 
+
 /* filter-order */
 .filter-order {
     margin-top: 15px;
+    width: 100%;
+    min-height: 100px;
 }
 
+
 /* table order */
-.order-table {
-    overflow: auto;
-    max-height: 500px;
-}
 
 .selectedRow {
     box-shadow: 0px 2px 2px #6c757d;
 }
-
-::-webkit-scrollbar {
-    border-radius: 0;
-    width: 6px;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(22, 24, 35, 0.2);
-}
-
-::-webkit-scrollbar-track {
-    border-radius: 0;
-    background-color: rgba(0, 0, 0, 0);
-}
-
-.selected-products {
-    width: 100%;
-    min-height: 500px;
-}
-
-.expiredDeadline {
-    color: red;
-}
-
-.cho-xac-nhan {
-    color: #ffd700;
-}
-
-.dang-xu-li {
-    color: #ff8c00;
-}
-
-.dang-van-chuyen {
-    color: #0000cd;
-}
-
-.da-giao-hang {
-    color: #008000;
-}
-
-.da-huy {
-    color: #ff0000;
-}
+  

@@ -11,21 +11,33 @@ const SearchResult: React.FC = () => {
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [minValue, setMinValue] = useState<number>(100000);
   const [maxValue, setMaxValue] = useState<number>(1000000);
-  const [filteredProductsList, setFilteredProductsList] = useState<Product[]>([]);
+  const [filteredProductsList, setFilteredProductsList] = useState<Product[]>(
+    []
+  );
   const [showFilter, setShowFilter] = useState<boolean>(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const searchName = searchParams.get("name");
-  // const pageRef = useRef(0);
+  const pageRef = useRef(0);
   const [products, setProducts] = useState<Product[]>([]);
   const [productDetails, setProductDetails] = useState<Product[]>([]);
-  const [filteredProductsUpdate, setFilteredProductsUpdate] = useState<Product[]>([]);
-  const [showNoResults, setShowNoResults] = useState(false);
+  const [filteredProductsUpdate, setFilteredProductsUpdate] = useState<
+    Product[]
+  >([]);
 
   // Gọi API và so sánh tên tìm kiếm
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const searchName = searchParams.get("name");
+    // get params in URL
+    const params = new URLSearchParams();
+    params.set("color", selectedColor);
+    params.set("size", selectedSize);
+    params.set("minValue", minValue.toString());
+    params.set("maxValue", maxValue.toString());
+
+    //
     const keywords = searchName?.toLowerCase().split(" ") ?? [];
     // set default value
     setSelectedColor("All");
@@ -33,51 +45,24 @@ const SearchResult: React.FC = () => {
     setMinValue(0);
     setMaxValue(1000000);
 
-    const fetchAllProducts = async () => {
-      let page = 0;
-      let allProducts: Product[] = [];
-
-      while (true) {
-        const response = await fetch(BACKEND_URL + `/products/?page=${page}`);
-        const productsJson = await response.json();
-        if (productsJson.length === 0) {
-          break;
-        }
-        allProducts = allProducts.concat(productsJson);
-        page++;
-      }
-      const filteredProducts = allProducts.filter((product) => {
-        const productName = product.name.toLowerCase();
-        const keywordMatch = keywords.every((keyword) => {
-          return productName.includes(keyword);
+    //
+    fetch(BACKEND_URL + `/products/?page=${pageRef.current}`)
+      .then((res) => res.json())
+      .then((productsJson: Product[]) => {
+        const filteredProducts = productsJson.filter((product) => {
+          const productName = product.name.toLowerCase();
+          const keywordMatch = keywords.every((keyword) => {
+            return productName.includes(keyword);
+          });
+          return keywordMatch;
         });
-        return keywordMatch;
-      });
-      setFilteredProductsList(filteredProducts);
-      setProducts(allProducts);
-    };
-    fetchAllProducts().catch((error) => {
-      console.error(error);
-    });
-    
-    let timeoutId: any;
-    fetchAllProducts()
-      .then(() => {
-        if (filteredProductsList.length === 0) {
-          timeoutId = setTimeout(() => {
-            setShowNoResults(true);
-          }, 7000);
-        }
+        setFilteredProductsList(filteredProducts);
+        setProducts(productsJson);
       })
       .catch((error) => {
         console.error(error);
       });
-    return () => {
-      clearTimeout(timeoutId);
-    };
   }, [location.search]);
-
-
 
   const colors = [
     ...new Set(productDetails.flatMap((product) => product.colorcode)),
@@ -249,8 +234,9 @@ const SearchResult: React.FC = () => {
               </svg>
             </a>
             <div
-              className={`${styles["filter-container"]} ${showFilter ? styles["filter-container-open"] : ""
-                }`}
+              className={`${styles["filter-container"]} ${
+                showFilter ? styles["filter-container-open"] : ""
+              }`}
             >
               <form>
                 <div className="row my-2 filter">
@@ -402,10 +388,8 @@ const SearchResult: React.FC = () => {
                     imgUrl={product.imageurl}
                   />
                 ))
-              )  : (
-                showNoResults ? (
-                  <p>Không tìm thấy kết quả nào.</p>
-                ) : null
+              ) : (
+                <p>Không tìm thấy kết quả nào.</p>
               )}
             </div>
           )}

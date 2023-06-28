@@ -134,8 +134,3 @@ function matchUnicode(strToMatch: string, searchStr: string) {
   for (let x in searchStr.split("")) {
   }
 }
-
-function checkHexColor(color: string) {
-  const pattern = new RegExp("(^#[a-f0-9]{6}$)|(^#[a-f0-9]{4}$)");
-  return pattern.test(color);
-}
